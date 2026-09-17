@@ -1,0 +1,1024 @@
+<% layout("/layouts/boilerplate") %>
+
+
+<style>
+
+/* =====================================================
+   MY BOOKINGS - REAL LIFE PREMIUM UI
+===================================================== */
+
+.bookings-page {
+    max-width: 1080px;
+    margin: 32px auto 70px;
+    padding: 0 18px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.bookings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.bookings-subtitle {
+    margin: 0 0 5px;
+    color: #ff385c;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.bookings-header h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #222;
+}
+
+.bookings-description {
+    margin: 5px 0 0;
+    color: #777;
+    font-size: 12px;
+}
+
+
+/* Booking counter */
+
+.booking-count {
+    min-width: 62px;
+    height: 55px;
+    padding: 5px 9px;
+    border: 1px solid #e8e8e8;
+    border-radius: 13px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.booking-count span {
+    font-size: 19px;
+    font-weight: 700;
+    color: #222;
+}
+
+.booking-count small {
+    font-size: 8px;
+    color: #888;
+}
+
+
+/* =====================================================
+   BOOKING CARD
+===================================================== */
+
+.booking-card {
+    display: flex;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e7e7e7;
+    border-radius: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.055);
+    transition: all 0.25s ease;
+}
+
+.booking-card:hover {
+    box-shadow: 0 9px 28px rgba(0, 0, 0, 0.09);
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   LISTING IMAGE
+===================================================== */
+
+.booking-image {
+    position: relative;
+    width: 235px;
+    min-width: 235px;
+    height: 245px;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+.booking-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+}
+
+.booking-card:hover .booking-image img {
+    transform: scale(1.035);
+}
+
+.no-image {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 30px;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status-badge {
+    position: absolute;
+    top: 11px;
+    left: 11px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 5px 9px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(5px);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+.status-badge.confirmed {
+    color: #17804b;
+}
+
+.status-badge.cancelled {
+    color: #d93025;
+}
+
+.status-badge.pending {
+    color: #b26a00;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.booking-content {
+    flex: 1;
+    min-width: 0;
+    padding: 19px 21px 15px;
+}
+
+
+/* =====================================================
+   LISTING TITLE
+===================================================== */
+
+.listing-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.listing-heading h2 {
+    margin: 0;
+    color: #222;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.location {
+    margin: 5px 0 0;
+    color: #777;
+    font-size: 11px;
+}
+
+.location i {
+    margin-right: 3px;
+    color: #ff385c;
+}
+
+
+/* Booking ID */
+
+.booking-id {
+    text-align: right;
+    color: #aaa;
+    font-size: 7px;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+}
+
+.booking-id strong {
+    display: block;
+    margin-top: 2px;
+    color: #555;
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   INFORMATION AREA
+===================================================== */
+
+.booking-info {
+    display: flex;
+    align-items: center;
+    gap: 0;
+
+    margin: 16px 0;
+
+    padding: 11px 5px;
+
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+}
+
+.info-box:not(:last-child) {
+    border-right: 1px solid #ededed;
+}
+
+.info-icon {
+    width: 29px;
+    height: 29px;
+    min-width: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #fafafa;
+    color: #ff385c;
+
+    font-size: 10px;
+}
+
+.info-box span {
+    display: block;
+    margin-bottom: 2px;
+
+    color: #999;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .6px;
+}
+
+.info-box strong {
+    display: block;
+    color: #333;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.date-arrow {
+    display: none;
+}
+
+
+/* =====================================================
+   GUEST SECTION
+===================================================== */
+
+.guest-section {
+    padding-top: 1px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 7px;
+}
+
+.section-title-left {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.small-icon {
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #fff4f5;
+    color: #ff385c;
+
+    font-size: 10px;
+}
+
+.section-title h4 {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.section-title p {
+    margin: 1px 0 0;
+    color: #aaa;
+    font-size: 7px;
+}
+
+.section-title > span {
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: #f7f7f7;
+    color: #777;
+    font-size: 8px;
+}
+
+
+/* =====================================================
+   GUEST CARD
+===================================================== */
+
+.guest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.guest-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 6px 9px;
+
+    border: 1px solid #eeeeee;
+    border-radius: 9px;
+
+    background: #fff;
+}
+
+.guest-avatar {
+    width: 27px;
+    height: 27px;
+    min-width: 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f5f5f5;
+    color: #777;
+
+    font-size: 9px;
+}
+
+.guest-name {
+    flex: 1;
+}
+
+.guest-name span {
+    display: block;
+
+    color: #aaa;
+    font-size: 7px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.guest-name strong {
+    display: block;
+
+    margin-top: 1px;
+
+    color: #333;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* Aadhaar */
+
+.aadhar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 5px 8px;
+
+    color: #555;
+    background: #fff;
+
+    border: 1px solid #ddd;
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-size: 8px;
+    font-weight: 600;
+
+    transition: all .2s ease;
+}
+
+.aadhar-btn:hover {
+    color: #222;
+    border-color: #bbb;
+    background: #f8f8f8;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.booking-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 13px;
+    padding-top: 12px;
+
+    border-top: 1px solid #eee;
+}
+
+
+/* Price */
+
+.price-area span {
+    display: block;
+    color: #999;
+    font-size: 8px;
+}
+
+.price-area strong {
+    display: block;
+
+    margin-top: 1px;
+
+    color: #222;
+    font-size: 18px;
+    font-weight: 750;
+}
+
+.price-area small {
+    display: block;
+    color: #aaa;
+    font-size: 7px;
+}
+
+
+/* Status text */
+
+.booking-status-text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.booking-status-text > i {
+    color: #198754;
+    font-size: 16px;
+}
+
+.booking-status-text strong {
+    display: block;
+    color: #333;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.booking-status-text span {
+    display: block;
+    margin-top: 1px;
+    color: #aaa;
+    font-size: 8px;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-bookings {
+    text-align: center;
+
+    padding: 60px 20px;
+
+    border: 1px solid #eee;
+    border-radius: 20px;
+
+    background: #fff;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+}
+
+.empty-icon {
+    width: 60px;
+    height: 60px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fff4f5;
+    color: #ff385c;
+
+    font-size: 23px;
+}
+
+.empty-bookings h2 {
+    margin-bottom: 6px;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.empty-bookings p {
+    max-width: 400px;
+
+    margin: 0 auto 20px;
+
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.explore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 9px 15px;
+
+    background: #ff385c;
+    color: #fff;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.explore-btn:hover {
+    background: #e31c5f;
+    color: #fff;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .booking-card {
+        flex-direction: column;
+    }
+
+    .booking-image {
+        width: 100%;
+        min-width: 100%;
+        height: 210px;
+    }
+
+    .booking-content {
+        padding: 17px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 550px) {
+
+    .bookings-page {
+        margin-top: 20px;
+        padding: 0 10px;
+    }
+
+    .bookings-header {
+        align-items: flex-start;
+    }
+
+    .bookings-header h1 {
+        font-size: 25px;
+    }
+
+    .bookings-description {
+        font-size: 11px;
+    }
+
+    .booking-count {
+        min-width: 55px;
+        height: 48px;
+    }
+
+    .booking-count span {
+        font-size: 17px;
+    }
+
+    .listing-heading {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .booking-id {
+        text-align: left;
+    }
+
+    .booking-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .info-box {
+        padding: 0;
+    }
+
+    .info-box:not(:last-child) {
+        border-right: none;
+    }
+
+    .booking-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}
+
+</style>
+
+
+<div class="bookings-page">
+<!-- ================= PAGE HEADER ================= -->
+<div class="bookings-header">
+    <div>
+        <p class="bookings-subtitle">YOUR TRAVEL JOURNEY</p>
+        <h1>My Bookings</h1>
+        <p class="bookings-description">
+            Manage your stays, guest details and booking information.
+        </p>
+    </div>
+
+    <div class="booking-count">
+        <span><%= bookings.length %></span>
+        <small>Booking<%= bookings.length !== 1 ? "s" : "" %></small>
+    </div>
+</div>
+
+
+<% if (bookings.length === 0) { %>
+
+    <!-- ================= EMPTY STATE ================= -->
+    <div class="empty-bookings">
+
+        <div class="empty-icon">
+            <i class="fa-solid fa-calendar-xmark"></i>
+        </div>
+
+        <h2>No bookings yet</h2>
+
+        <p>
+            You haven't booked any stays yet.
+            Start exploring beautiful places and plan your next trip.
+        </p>
+
+        <a href="/listings" class="explore-btn">
+            <i class="fa-solid fa-compass"></i>
+            Explore Listings
+        </a>
+
+    </div>
+
+<% } else { %>
+
+
+    <!-- ================= BOOKINGS ================= -->
+    <div class="bookings-list">
+
+        <% bookings.forEach((booking) => { %>
+
+            <div class="booking-card">
+
+                <!-- ================= LISTING IMAGE ================= -->
+                <div class="booking-image">
+
+                    <% if (
+                        booking.listing.image &&
+                        booking.listing.image.url
+                    ) { %>
+
+                        <img
+                            src="<%= booking.listing.image.url %>"
+                            alt="<%= booking.listing.title %>"
+                        >
+
+                    <% } else if (
+                        booking.listing.images &&
+                        booking.listing.images.length > 0
+                    ) { %>
+
+                        <img
+                            src="<%= booking.listing.images[0].url %>"
+                            alt="<%= booking.listing.title %>"
+                        >
+
+                    <% } else { %>
+
+                        <div class="no-image">
+                            <i class="fa-solid fa-image"></i>
+                        </div>
+
+                    <% } %>
+
+                    <!-- Booking status -->
+                    <span class="status-badge <%= booking.status.toLowerCase() %>">
+
+                        <% if (booking.status.toLowerCase() === "confirmed") { %>
+                            <i class="fa-solid fa-circle-check"></i>
+                        <% } else if (booking.status.toLowerCase() === "cancelled") { %>
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        <% } else { %>
+                            <i class="fa-solid fa-clock"></i>
+                        <% } %>
+
+                        <%= booking.status %>
+
+                    </span>
+
+                </div>
+
+
+                <!-- ================= BOOKING CONTENT ================= -->
+                <div class="booking-content">
+
+                    <!-- Listing -->
+                    <div class="listing-heading">
+
+                        <div>
+                            <h2>
+                                <%= booking.listing.title %>
+                            </h2>
+
+                            <p class="location">
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <%= booking.listing.location %>,
+                                <%= booking.listing.country %>
+                            </p>
+                        </div>
+
+                        <div class="booking-id">
+                            Booking ID
+                            <strong>#<%= booking._id.toString().slice(-6).toUpperCase() %></strong>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================= DATE BOXES ================= -->
+                    <div class="booking-info">
+
+                        <div class="info-box">
+
+                            <div class="info-icon">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+
+                            <div>
+                                <span>CHECK-IN</span>
+
+                                <strong>
+                                    <%= booking.checkIn.toDateString() %>
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="date-arrow">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <div class="info-icon">
+                                <i class="fa-solid fa-calendar-xmark"></i>
+                            </div>
+
+                            <div>
+                                <span>CHECK-OUT</span>
+
+                                <strong>
+                                    <%= booking.checkOut.toDateString() %>
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <div class="info-icon">
+                                <i class="fa-solid fa-user-group"></i>
+                            </div>
+
+                            <div>
+                                <span>GUESTS</span>
+
+                                <strong>
+                                    <%= booking.guests %>
+                                    <%= booking.guests === 1 ? "Guest" : "Guests" %>
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================= GUEST DETAILS ================= -->
+                    <% if (
+                        booking.guestsDetails &&
+                        booking.guestsDetails.length > 0
+                    ) { %>
+
+                        <div class="guest-section">
+
+                            <div class="section-title">
+
+                                <div class="section-title-left">
+                                    <div class="small-icon">
+                                        <i class="fa-solid fa-users"></i>
+                                    </div>
+
+                                    <div>
+                                        <h4>Guest Details</h4>
+                                        <p>
+                                            Information provided during booking
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <span>
+                                    <%= booking.guestsDetails.length %>
+                                    Guest<%= booking.guestsDetails.length !== 1 ? "s" : "" %>
+                                </span>
+
+                            </div>
+
+
+                            <div class="guest-list">
+
+                                <% booking.guestsDetails.forEach((guest, index) => { %>
+
+                                    <div class="guest-card">
+
+                                        <div class="guest-avatar">
+                                            <i class="fa-solid fa-user"></i>
+                                        </div>
+
+                                        <div class="guest-name">
+
+                                            <span>
+                                                Person <%= index + 1 %>
+                                            </span>
+
+                                            <strong>
+                                                <%= guest.name %>
+                                            </strong>
+
+                                        </div>
+
+
+                                        <!-- Aadhaar only Person 1 -->
+                                        <% if (
+                                            index === 0 &&
+                                            guest.aadharCard &&
+                                            guest.aadharCard.url
+                                        ) { %>
+
+                                            <a
+                                                href="<%= guest.aadharCard.url %>"
+                                                target="_blank"
+                                                class="aadhar-btn"
+                                            >
+                                                <i class="fa-solid fa-id-card"></i>
+                                                View Aadhaar
+                                            </a>
+
+                                        <% } %>
+
+                                    </div>
+
+                                <% }) %>
+
+                            </div>
+
+                        </div>
+
+                    <% } %>
+
+
+                    <!-- ================= FOOTER ================= -->
+                    <div class="booking-footer">
+
+                        <div class="price-area">
+
+                            <span>Total Amount</span>
+
+                            <strong>
+                                &#x20B9;
+                                <%= booking.totalPrice.toLocaleString("en-IN") %>
+                            </strong>
+
+                            <small>
+                                Inclusive of booking charges
+                            </small>
+
+                        </div>
+
+
+                        <div class="booking-status-text">
+
+                            <% if (booking.status.toLowerCase() === "confirmed") { %>
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                <div>
+                                    <strong>Booking Confirmed</strong>
+                                    <span>Your stay is reserved.</span>
+                                </div>
+
+                            <% } else if (booking.status.toLowerCase() === "cancelled") { %>
+
+                                <i class="fa-solid fa-circle-xmark"></i>
+
+                                <div>
+                                    <strong>Booking Cancelled</strong>
+                                    <span>This reservation is no longer active.</span>
+                                </div>
+
+                            <% } else { %>
+
+                                <i class="fa-solid fa-clock"></i>
+
+                                <div>
+                                    <strong>Booking Pending</strong>
+                                    <span>Waiting for confirmation.</span>
+                                </div>
+
+                            <% } %>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+<% } %>
+</div>
+
+

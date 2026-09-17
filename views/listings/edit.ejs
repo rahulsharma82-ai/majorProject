@@ -1,0 +1,326 @@
+<% layout("/layouts/boilerplate") %>
+<link rel="stylesheet" href="/css/edit.css">
+
+<body>
+
+  <div class="edit-page">
+
+    <div class="container">
+
+      <div class="edit-card">
+
+        <!-- Header -->
+        <div class="edit-header">
+          <h2>✏️ Edit Your Listing</h2>
+          <p>Update your property details and keep your listing fresh.</p>
+        </div>
+
+
+        <form
+          method="POST"
+          action="/listings/<%= listing._id %>?_method=PUT"
+          novalidate
+          class="needs-validation"
+          enctype="multipart/form-data"
+        >
+
+          <!-- Basic Information -->
+          <div class="section-title">
+            🏠 Basic Information
+          </div>
+
+
+          <!-- Title -->
+          <div class="mb-3">
+
+            <label for="title" class="form-label">
+              Listing Title
+            </label>
+
+            <input
+              type="text"
+              id="title"
+              name="listing[title]"
+              value="<%= listing.title %>"
+              placeholder="Enter your listing title"
+              class="form-control"
+              required
+            >
+
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+
+            <div class="invalid-feedback">
+              Please enter a valid title.
+            </div>
+
+          </div>
+
+
+          <!-- Description -->
+          <div class="mb-3">
+
+            <label for="description" class="form-label">
+              Description
+            </label>
+
+            <textarea
+              id="description"
+              name="listing[description]"
+              class="form-control"
+              placeholder="Describe your property..."
+              required
+            ><%= listing.description %></textarea>
+
+            <div class="invalid-feedback">
+              Give a short description.
+            </div>
+
+          </div>
+
+
+          <!-- Category -->
+          <div class="mb-3">
+
+            <label for="category" class="form-label">
+              Category
+            </label>
+
+            <select
+              id="category"
+              name="listing[category]"
+              class="form-select"
+              required
+            >
+
+              <option value="">
+                Select Category
+              </option>
+
+              <option
+                value="Trending"
+                <%= listing.category === "Trending" ? "selected" : "" %>
+              >
+                Trending
+              </option>
+
+              <option
+                value="Rooms"
+                <%= listing.category === "Rooms" ? "selected" : "" %>
+              >
+                Rooms
+              </option>
+
+              <option
+                value="Iconic Cities"
+                <%= listing.category === "Iconic Cities" ? "selected" : "" %>
+              >
+                Iconic Cities
+              </option>
+
+              <option
+                value="Castles"
+                <%= listing.category === "Castles" ? "selected" : "" %>
+              >
+                Castles
+              </option>
+
+              <option
+                value="Amazing Pools"
+                <%= listing.category === "Amazing Pools" ? "selected" : "" %>
+              >
+                Amazing Pools
+              </option>
+
+              <option
+                value="Camping"
+                <%= listing.category === "Camping" ? "selected" : "" %>
+              >
+                Camping
+              </option>
+
+              <option
+                value="Farms"
+                <%= listing.category === "Farms" ? "selected" : "" %>
+              >
+                Farms
+              </option>
+
+              <option
+                value="Arctic"
+                <%= listing.category === "Arctic" ? "selected" : "" %>
+              >
+                Arctic
+              </option>
+
+            </select>
+
+            <div class="invalid-feedback">
+              Please select a category.
+            </div>
+
+          </div>
+
+
+          <!-- Image Section -->
+          <div class="section-title">
+            📸 Property Image
+          </div>
+
+
+          <!-- Current Image -->
+          <div class="image-preview-box">
+
+            <p>
+              Current Listing Image
+            </p>
+
+            <% if (originalImageUrl) { %>
+
+              <img
+                src="<%= originalImageUrl %>"
+                alt="Listing Image"
+                class="image-preview"
+              >
+
+            <% } else { %>
+
+              <p>
+                No image available
+              </p>
+
+            <% } %>
+
+          </div>
+
+
+          <!-- Upload New Images -->
+          <div class="mb-3">
+
+            <label for="images" class="form-label">
+              Upload New Images
+            </label>
+
+            <div class="upload-box">
+
+              <input
+                type="file"
+                id="images"
+                name="listing[images]"
+                class="form-control"
+                multiple
+              >
+
+            </div>
+
+            <small class="text-muted">
+              You can upload up to 4 images.
+            </small>
+
+            <div class="invalid-feedback">
+              Please select a valid image.
+            </div>
+
+          </div>
+
+
+          <!-- Price & Location -->
+          <div class="section-title">
+            📍 Price & Location
+          </div>
+
+
+          <div class="row">
+
+            <!-- Price -->
+            <div class="mb-3 col-md-4">
+
+              <label for="price" class="form-label">
+                Price
+              </label>
+
+              <input
+                type="number"
+                id="price"
+                name="listing[price]"
+                value="<%= listing.price %>"
+                placeholder="1200"
+                class="form-control"
+                required
+              >
+
+              <div class="invalid-feedback">
+                Price should be valid!
+              </div>
+
+            </div>
+
+
+            <!-- Country -->
+            <div class="mb-3 col-md-8">
+
+              <label for="country" class="form-label">
+                Country
+              </label>
+
+              <input
+                type="text"
+                id="country"
+                name="listing[country]"
+                value="<%= listing.country %>"
+                placeholder="India"
+                class="form-control"
+                required
+              >
+
+              <div class="invalid-feedback">
+                Country should be valid!
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Location -->
+          <div class="mb-3">
+
+            <label for="location" class="form-label">
+              Location
+            </label>
+
+            <input
+              type="text"
+              id="location"
+              name="listing[location]"
+              value="<%= listing.location %>"
+              placeholder="Bihar, India"
+              class="form-control"
+              required
+            >
+
+            <div class="invalid-feedback">
+              Location should be valid!
+            </div>
+
+          </div>
+
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="btn btn-dark edit-btn"
+          >
+            ✨ Save Changes
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>

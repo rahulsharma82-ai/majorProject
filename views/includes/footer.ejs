@@ -1,0 +1,583 @@
+<!-- ================= PREMIUM FOOTER ================= -->
+
+<style>
+
+/* =========================================================
+   PREMIUM FOOTER
+   ========================================================= */
+
+.premium-footer {
+    width: 100%;
+
+    /* Footer normal page flow mein rahega */
+    position: relative;
+
+    margin-top: 60px;
+
+    background: linear-gradient(
+        135deg,
+        #111827,
+        #1f2937
+    );
+
+    color: #ffffff;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 -5px 20px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   TOP RED LINE
+   ========================================================= */
+
+.premium-footer::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #fe424d,
+        #ff6b6b,
+        #fe424d
+    );
+}
+
+
+/* =========================================================
+   FOOTER CONTAINER
+   ========================================================= */
+
+.footer-container {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 25px 15px 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SOCIAL ICONS
+   ========================================================= */
+
+.footer-socials {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 14px;
+}
+
+
+.footer-socials a {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    transition: all 0.3s ease;
+}
+
+
+/* Social Hover */
+
+.footer-socials a:hover {
+    background: #fe424d;
+
+    color: #ffffff;
+
+    transform: translateY(-4px);
+
+    border-color: #fe424d;
+
+    box-shadow:
+        0 7px 18px rgba(254, 66, 77, 0.35);
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.footer-brand {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    line-height: 1;
+}
+
+
+.footer-brand i {
+    color: #fe424d;
+
+    font-size: 27px;
+
+    transition: transform 0.3s ease;
+}
+
+
+.footer-brand:hover i {
+    transform: rotate(-10deg) scale(1.05);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.footer-text {
+    margin: 11px 0 16px;
+
+    max-width: 520px;
+
+    color: #9ca3af;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FOOTER LINKS
+   ========================================================= */
+
+.footer-links {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 18px;
+}
+
+
+.footer-links a {
+    position: relative;
+
+    color: #d1d5db;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    transition:
+        color 0.25s ease;
+}
+
+
+/* Link Hover */
+
+.footer-links a:hover {
+    color: #fe424d;
+}
+
+
+/* Link Underline */
+
+.footer-links a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -4px;
+
+    width: 100%;
+    height: 2px;
+
+    background: #fe424d;
+
+    border-radius: 10px;
+
+    transform: scaleX(0);
+
+    transform-origin: center;
+
+    transition: transform 0.25s ease;
+}
+
+
+.footer-links a:hover::after {
+    transform: scaleX(1);
+}
+
+
+.footer-links span {
+    color: #6b7280;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   FOOTER BOTTOM
+   ========================================================= */
+
+.footer-bottom {
+    width: 100%;
+
+    padding-top: 14px;
+
+    border-top: 1px solid
+        rgba(255, 255, 255, 0.10);
+
+    color: #9ca3af;
+
+    font-size: 11px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 30px;
+
+    line-height: 1.4;
+}
+
+
+.footer-bottom p {
+    margin: 0;
+}
+
+
+/* =========================================================
+   DEVELOPER
+   ========================================================= */
+
+.developer {
+    color: #9ca3af;
+}
+
+
+.developer strong {
+    color: #ffffff;
+
+    font-weight: 600;
+
+    transition: color 0.25s ease;
+}
+
+
+.developer strong:hover {
+    color: #fe424d;
+}
+
+
+.developer i {
+    color: #fe424d;
+
+    margin: 0 4px;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .premium-footer {
+        margin-top: 45px;
+    }
+
+
+    .footer-container {
+        padding: 30px 15px 22px;
+    }
+
+
+    .footer-socials {
+        gap: 10px;
+
+        margin-bottom: 12px;
+    }
+
+
+    .footer-socials a {
+        width: 36px;
+        height: 36px;
+
+        font-size: 13px;
+    }
+
+
+    .footer-brand {
+        font-size: 22px;
+    }
+
+
+    .footer-brand i {
+        font-size: 24px;
+    }
+
+
+    .footer-text {
+        font-size: 11px;
+
+        max-width: 400px;
+
+        margin: 9px 0 13px;
+    }
+
+
+    .footer-links {
+        gap: 10px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .footer-links a {
+        font-size: 11px;
+    }
+
+
+    .footer-bottom {
+        flex-direction: column;
+
+        gap: 5px;
+
+        font-size: 10px;
+
+        padding-top: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .premium-footer {
+        margin-top: 40px;
+    }
+
+
+    .footer-container {
+        padding: 27px 10px 20px;
+    }
+
+
+    .footer-socials a {
+        width: 34px;
+        height: 34px;
+
+        font-size: 12px;
+    }
+
+
+    .footer-brand {
+        font-size: 20px;
+    }
+
+
+    .footer-brand i {
+        font-size: 22px;
+    }
+
+
+    .footer-text {
+        font-size: 10px;
+
+        max-width: 330px;
+    }
+
+
+    .footer-links a {
+        font-size: 10px;
+    }
+
+
+    .footer-bottom {
+        font-size: 9px;
+
+        gap: 4px;
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer class="premium-footer">
+
+    <div class="footer-container">
+
+
+        <!-- ================= SOCIAL ICONS ================= -->
+
+        <div class="footer-socials">
+
+            <a href="#" aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+
+
+            <a href="#" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+
+            <a href="#" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+
+
+            <a href="#" aria-label="GitHub">
+                <i class="fa-brands fa-github"></i>
+            </a>
+
+        </div>
+
+
+        <!-- ================= BRAND ================= -->
+
+        <div class="footer-brand">
+
+            <i class="fa-solid fa-compass"></i>
+
+            <span>Wanderlust</span>
+
+        </div>
+
+
+        <!-- ================= DESCRIPTION ================= -->
+
+        <p class="footer-text">
+
+            Discover beautiful places and create unforgettable memories.
+
+        </p>
+
+
+        <!-- ================= FOOTER LINKS ================= -->
+
+        <div class="footer-links">
+
+            <a href="/privacy">
+                Privacy
+            </a>
+
+
+            <span>•</span>
+
+
+            <a href="/terms">
+                Terms
+            </a>
+
+
+            <span>•</span>
+
+
+            <a href="/listings">
+                Explore
+            </a>
+
+        </div>
+
+
+        <!-- ================= COPYRIGHT ================= -->
+
+        <div class="footer-bottom">
+
+            <p>
+
+                &copy;
+
+                <%= new Date().getFullYear() %>
+
+                Wanderlust Private Limited.
+
+                All rights reserved.
+
+            </p>
+
+
+            <p class="developer">
+
+                Developed with
+
+                <i class="fa-solid fa-heart"></i>
+
+                by  &nbsp;
+
+                <strong> 
+                      Rahul Kumar Sharma
+                </strong>
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</footer>

@@ -1,0 +1,159 @@
+<% layout("/layouts/boilerplate") %>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-8 offset-1">
+        <h3 class="mb-4">Create a New Listing</h3>
+
+        <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+
+          <!-- Title -->
+          <div class="mb-3">
+            <label for="title" class="form-label">Enter Title</label>
+            <input type="text" name="listing[title]" placeholder="Enter Title" class="form-control" required>
+
+            <div class="valid-feedback">
+              <!--yaha pe ham form validation use kiye hai bootstrap se -->
+              Looks good!
+            </div>
+          </div>
+
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label for="description" class="form-label">Enter Description</label>
+
+            <textarea name="listing[description]" class="form-control" required></textarea>
+
+            <div class="invalid-feedback">
+              <!--yaha pe ham form validation use kiye hai bootstrap se -->
+              Give the some short Description
+            </div>
+          </div>
+
+
+          <!-- Category -->
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+
+            <select name="listing[category]" id="category" class="form-select" required>
+
+              <option value="">Select Category</option>
+
+              <option value="Trending">Trending</option>
+
+              <option value="Rooms">Rooms</option>
+
+              <option value="Iconic Cities">Iconic Cities</option>
+
+              <option value="Castles">Castles</option>
+
+              <option value="Amazing Pools">Amazing Pools</option>
+
+              <option value="Camping">Camping</option>
+
+              <option value="Farms">Farms</option>
+
+              <option value="Arctic">Arctic</option>
+
+            </select>
+
+            <div class="invalid-feedback">
+              Please select a category.
+            </div>
+          </div>
+
+
+          <!-- Image -->
+
+          <!-- Image -->
+          <div class="mb-3">
+            <label for="images" class="form-label">Upload Listing Images</label>
+
+            <input
+              type="file"
+              name="listing[images]"
+              class="form-control"
+              multiple
+              required
+            >
+
+            <small class="text-muted">
+              You can upload up to 4 images.
+            </small>
+          </div>
+
+
+          <!-- Price -->
+          <div class="row">
+
+            <div class="mb-3 col-md-4">
+
+              <label for="price" class="form-label">Price</label>
+
+              <input
+                name="listing[price]"
+                placeholder="1200"
+                class="form-control"
+                required
+              >
+
+              <div class="invalid-feedback">
+                <!--yaha pe ham form validation use kiye hai bootstrap se -->
+                Price should be Valid!
+              </div>
+
+            </div>
+
+
+            <!-- Country -->
+            <div class="mb-3 col-md-8">
+
+              <label for="country" class="form-label">Country</label>
+
+              <input
+                type="text"
+                name="listing[country]"
+                placeholder="India"
+                class="form-control"
+                required
+              >
+
+              <div class="invalid-feedback">
+                Country should be valid!
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Location -->
+          <div class="mb-3">
+
+            <label for="location" class="form-label">Enter Location</label>
+
+            <input
+              type="text"
+              name="listing[location]"
+              placeholder="Bihar,India"
+              class="form-control"
+              required
+            >
+
+            <div class="invalid-feedback">
+              <!--yaha pe ham form validation use kiye hai bootstrap se -->
+              Location should be Valid!
+            </div>
+
+          </div>
+
+
+          <!-- Submit Button -->
+          <button class="btn btn-dark add-btn">Add</button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>

@@ -1,0 +1,575 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+
+    .booking-card {
+        max-width: 520px;
+        margin: 40px auto;
+        border-radius: 22px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+        background: white;
+    }
+
+    .listing-name {
+        padding: 25px 30px 5px;
+        margin: 0;
+        font-size: 24px;
+    }
+
+    /* Price Section */
+    .booking-price {
+        padding: 10px 30px 20px;
+        font-size: 18px;
+    }
+
+    .current-price {
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    /* Booking Details */
+    .booking-details {
+        border: 1px solid #999;
+        border-radius: 18px;
+        overflow: hidden;
+        margin: 10px 30px;
+    }
+
+    /* Check-in & Check-out */
+    .date-row {
+        display: flex;
+    }
+
+    .date-box {
+        width: 50%;
+        padding: 15px;
+    }
+
+    .date-box:first-child {
+        border-right: 1px solid #999;
+    }
+
+    .date-box label,
+    .guest-box label {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .date-box input,
+    .guest-box input {
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 17px;
+    }
+
+    /* Guests */
+    .guest-box {
+        border-top: 1px solid #999;
+        padding: 15px;
+    }
+
+    /* Guest Details */
+    .guest-details {
+        margin: 18px 30px;
+    }
+
+    .guest-details-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .person-card {
+        padding: 15px;
+        margin-bottom: 12px;
+        border: 1px solid #ddd;
+        border-radius: 14px;
+        background: #f8f8f8;
+    }
+
+    .person-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .person-card label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .person-card input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        font-size: 15px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    .person-card input:focus {
+        border-color: #e91e63;
+    }
+
+    .person-card input[type="file"] {
+        background: white;
+        cursor: pointer;
+    }
+
+    /* Room Information */
+    .room-info {
+        margin: 18px 30px;
+        padding: 16px 18px;
+        border-radius: 14px;
+        background: #f7f7f7;
+        border: 1px solid #ddd;
+    }
+
+    .room-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #222;
+    }
+
+    .room-subtitle {
+        margin-top: 5px;
+        font-size: 13px;
+        color: #666;
+    }
+
+    /* Reserve Button */
+    .reserve-btn {
+        width: calc(100% - 60px);
+        margin: 10px 30px;
+        border: none;
+        border-radius: 30px;
+        padding: 15px;
+        background: #e91e63;
+        color: white;
+        font-size: 21px;
+        font-weight: 600;
+    }
+
+    .reserve-btn:hover {
+        background: #d41459;
+        color: white;
+    }
+
+    /* No Charge Text */
+    .no-charge {
+        text-align: center;
+        padding: 10px 0 25px;
+        color: #444;
+        font-size: 14px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 600px) {
+
+        .booking-card {
+            margin: 20px 10px;
+        }
+
+        .listing-name {
+            padding: 20px;
+        }
+
+        .booking-price {
+            padding: 10px 20px 15px;
+        }
+
+        .booking-details {
+            margin: 10px 20px;
+        }
+
+        .guest-details {
+            margin: 15px 20px;
+        }
+
+        .room-info {
+            margin: 15px 20px;
+        }
+
+        .reserve-btn {
+            width: calc(100% - 40px);
+            margin: 10px 20px;
+        }
+    }
+
+</style>
+
+
+<div class="booking-card">
+
+    <!-- Listing Name -->
+    <h4 class="listing-name">
+        <%= listing.title %>
+    </h4>
+
+
+    <!-- Dynamic Price -->
+    <div class="booking-price">
+
+        <span class="current-price">
+            ₹<span id="totalPrice">0</span>
+        </span>
+
+        <span>
+            for <span id="totalNights">0</span> nights
+        </span>
+
+    </div>
+
+
+    <!-- Booking Form -->
+    <form
+        action="/listings/<%= listing._id %>/book"
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        <!-- ================= BOOKING DETAILS ================= -->
+
+        <div class="booking-details">
+
+            <!-- Check-in & Check-out -->
+            <div class="date-row">
+
+                <!-- Check-in -->
+                <div class="date-box">
+
+                    <label for="checkIn">
+                        CHECK-IN
+                    </label>
+
+                    <input
+                        type="date"
+                        id="checkIn"
+                        name="checkIn"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Check-out -->
+                <div class="date-box">
+
+                    <label for="checkOut">
+                        CHECKOUT
+                    </label>
+
+                    <input
+                        type="date"
+                        id="checkOut"
+                        name="checkOut"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Guests -->
+            <div class="guest-box">
+
+                <label for="guests">
+                    GUESTS
+                </label>
+
+                <input
+                    type="number"
+                    id="guests"
+                    name="guests"
+                    min="1"
+                    value="1"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= GUEST DETAILS ================= -->
+
+        <div class="guest-details">
+
+            <div class="guest-details-title">
+                Guest Details
+            </div>
+
+            <!-- JavaScript yaha guest fields create karega -->
+            <div id="guestDetails"></div>
+
+        </div>
+
+
+        <!-- ================= ROOM INFORMATION ================= -->
+
+        <div class="room-info">
+
+            <div class="room-title">
+
+                🏠
+
+                <span id="roomCount">
+                    1 Room Required
+                </span>
+
+            </div>
+
+            <div class="room-subtitle">
+                Up to 3 guests can stay in each room.
+            </div>
+
+        </div>
+
+
+        <!-- ================= RESERVE BUTTON ================= -->
+
+        <button
+            type="submit"
+            class="reserve-btn"
+        >
+            Reserve
+        </button>
+
+
+        <div class="no-charge">
+            You won't be charged yet
+        </div>
+
+    </form>
+
+</div>
+
+
+<script>
+
+    // Guests input ko select kar rahe hain
+    const guests = document.getElementById("guests");
+
+    // Guest details container ko select kar rahe hain
+    const guestDetails = document.getElementById("guestDetails");
+
+
+    // Check-in input
+    const checkIn = document.getElementById("checkIn");
+
+    // Check-out input
+    const checkOut = document.getElementById("checkOut");
+
+
+    // Listing ki price
+    const pricePerNight = "<%= listing.price || 0 %>";
+
+
+    // Total price element
+    const totalPrice = document.getElementById("totalPrice");
+
+    // Total nights element
+    const totalNights = document.getElementById("totalNights");
+
+    // Room count element
+    const roomCount = document.getElementById("roomCount");
+
+
+    // =====================================================
+    //              GUEST FIELDS CREATE
+    // =====================================================
+
+    function createGuestFields() {
+
+        // Purane guest fields remove
+        guestDetails.innerHTML = "";
+
+        // Guest count
+        const guestCount = Number(guests.value);
+
+
+        // Har guest ke liye field create
+        for (let i = 1; i <= guestCount; i++) {
+
+            const personCard = document.createElement("div");
+
+            personCard.className = "person-card";
+
+
+            // Person ka HTML
+            personCard.innerHTML = `
+
+                <div class="person-title">
+                    Person ${i}
+                </div>
+
+
+                <!-- Guest Name -->
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    name="guestsDetails[${i - 1}][name]"
+                    placeholder="Enter full name"
+                    required
+                >
+
+
+                ${
+                    i === 1
+                    ? `
+
+                        <!-- Aadhaar Card ONLY for Person 1 -->
+
+                        <label>
+                            Aadhaar Card
+                        </label>
+
+                        <input
+                            type="file"
+                            name="guestsDetails[0][aadharCard]"
+                            accept="image/*"
+                            required
+                        >
+
+                    `
+                    : ""
+                }
+
+            `;
+
+
+            // Person card ko page me add
+            guestDetails.appendChild(personCard);
+        }
+
+
+        // Room calculate
+        calculateRooms();
+
+    }
+
+
+    // =====================================================
+    //                  ROOM CALCULATION
+    // =====================================================
+
+    function calculateRooms() {
+
+        const guestCount = Number(guests.value);
+
+        // 1 room me maximum 3 guests
+        const rooms = Math.ceil(guestCount / 3);
+
+
+        roomCount.innerText =
+            `${rooms} Room ${rooms > 1 ? "Required" : "Required"}`;
+
+    }
+
+
+    // =====================================================
+    //                  PRICE CALCULATION
+    // =====================================================
+
+    function calculateTotal() {
+
+        // Check-in date
+        const startDate = new Date(checkIn.value);
+
+        // Check-out date
+        const endDate = new Date(checkOut.value);
+
+
+        // Agar valid dates nahi hain
+        if (
+            !checkIn.value ||
+            !checkOut.value ||
+            endDate <= startDate
+        ) {
+
+            totalNights.innerText = "0";
+
+            totalPrice.innerText = "0";
+
+            return;
+        }
+
+
+        // Total nights
+        const nights =
+            (endDate - startDate) /
+            (1000 * 60 * 60 * 24);
+
+
+        // Total guests
+        const guestCount = Number(guests.value);
+
+
+        // 3 guests per room
+        const rooms = Math.ceil(guestCount / 3);
+
+
+        // Total price
+        const total =
+            pricePerNight * rooms * nights;
+
+
+        // Page par show
+        totalNights.innerText = nights;
+
+        totalPrice.innerText =
+            total.toLocaleString("en-IN");
+    }
+
+
+    // =====================================================
+    //                  EVENT LISTENERS
+    // =====================================================
+
+    // Guests change hone par fields update
+    guests.addEventListener(
+        "input",
+        () => {
+
+            createGuestFields();
+
+            calculateTotal();
+
+        }
+    );
+
+
+    // Check-in change
+    checkIn.addEventListener(
+        "change",
+        calculateTotal
+    );
+
+
+    // Check-out change
+    checkOut.addEventListener(
+        "change",
+        calculateTotal
+    );
+
+
+    // =====================================================
+    //                  PAGE LOAD
+    // =====================================================
+
+    // Page load hote hi Person 1 create
+    createGuestFields();
+
+</script>

@@ -1,0 +1,612 @@
+<% layout("/layouts/boilerplate") %>
+
+<script>
+    const mapToken = "<%= process.env.MAP_TOKEN %>";
+</script>
+
+<!-- yaha pe css file ko link kiye hai  -->
+<link rel="stylesheet" href="/css/show.css">
+
+<div class="listing-page">
+
+    <!-- ================= LISTING HEADER ================= -->
+
+    <div class="listing-header">
+
+        <div>
+
+            <h1>
+                <%= listing.title %>
+            </h1>
+
+            <div class="location">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <%= listing.location %>,
+                <%= listing.country %>
+
+            </div>
+
+        </div>
+
+
+        <!-- Favorite Button -->
+
+        <button
+            class="favorite-btn"
+            id="favoriteBtn"
+            type="button"
+        >
+
+            <i class="fa-regular fa-heart"></i>
+
+        </button>
+
+    </div>
+
+
+    <!-- ================= MAIN IMAGE ================= -->
+
+  <!-- ================= LISTING IMAGES ================= -->
+
+<div id="listingCarousel" class="carousel slide listing-gallery">
+
+    <div class="carousel-inner">
+
+        <% if (listing.images && listing.images.length > 0) { %>
+
+            <% listing.images.forEach((image, index) => { %>
+
+                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+
+                    <img
+                        src="<%= image.url %>"
+                        class="d-block w-100 main-image"
+                        alt="<%= listing.title %> Image <%= index + 1 %>"
+                    >
+
+                </div>
+
+            <% }) %>
+
+        <% } else if (listing.image && listing.image.url) { %>
+
+            <!-- Old listing ke liye fallback image -->
+
+            <div class="carousel-item active">
+
+                <img
+                    src="<%= listing.image.url %>"
+                    class="d-block w-100 main-image"
+                    alt="<%= listing.title %>"
+                >
+
+            </div>
+
+        <% } else { %>
+
+            <!-- Agar image nahi hai -->
+
+            <div class="carousel-item active">
+
+                <div class="no-image">
+                    No Image Available
+                </div>
+
+            </div>
+
+        <% } %>
+
+    </div>
+
+
+    <!-- Previous Button -->
+
+    <% if (listing.images && listing.images.length > 1) { %>
+
+        <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#listingCarousel"
+            data-bs-slide="prev"
+        >
+
+            <span class="carousel-control-prev-icon"></span>
+
+            <span class="visually-hidden">
+                Previous
+            </span>
+
+        </button>
+
+
+        <!-- Next Button -->
+
+        <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#listingCarousel"
+            data-bs-slide="next"
+        >
+
+            <span class="carousel-control-next-icon"></span>
+
+            <span class="visually-hidden">
+                Next
+            </span>
+
+        </button>
+
+    <% } %>
+
+</div>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <div class="content-area">
+
+        <div class="details">
+
+            <h2>
+                About this place
+            </h2>
+
+            <p>
+                <%= listing.description %>
+            </p>
+
+
+            <!-- ================= FEATURES ================= -->
+
+            <div class="features">
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Entire place
+
+                </div>
+
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Great location
+
+                </div>
+
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-star"></i>
+
+                    Highly rated
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= OWNER ================= -->
+
+            <!-- yaha pe ye kar rhe hai jo user listing create kiya hai wahe delete ya update kar sakta hai -->
+
+            <% if (listing.owner) { %>
+
+                <div class="owner-box">
+
+                    <p>
+                        Hosted by
+                    </p>
+
+                    <strong>
+                        <%= listing.owner.username %>
+                    </strong>
+
+                    <p>
+                        Your trusted host for a comfortable stay.
+                    </p>
+
+
+                    <!-- Owner Authorization -->
+
+                    <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+
+                        <div class="owner-actions">
+
+                            <!-- Edit -->
+
+                            <a
+                                href="/listings/<%= listing._id %>/edit"
+                                class="btn btn-outline-dark"
+                            >
+
+                                <i class="fa-solid fa-pen"></i>
+
+                                Edit
+
+                            </a>
+
+
+                            <!-- Delete -->
+
+                            <form
+                                method="POST"
+                                action="/listings/<%= listing._id %>?_method=DELETE"
+                            >
+
+                                <button
+                                    class="btn btn-outline-danger"
+                                    type="submit"
+                                >
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                    Delete
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    <% } %>
+
+                </div>
+
+            <% } %>
+
+        </div>
+
+
+        <!-- ================= BOOKING BOX ================= -->
+
+        <div class="booking-box">
+
+            <div class="price">
+
+                &#x20B9;
+
+                <%= listing.price ? listing.price.toLocaleString("en-IN") : 0 %>
+
+                <span>
+                    / night
+                </span>
+
+            </div>
+
+            <p>
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                You won't be charged yet
+
+            </p>
+
+
+            <!-- Book Now -->
+
+            <a
+                href="/listings/<%= listing._id %>/book"
+                class="book-btn d-block text-center text-decoration-none"
+            >
+
+                Book Now
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= REVIEWS ================= -->
+
+    <div class="reviews-section">
+
+        <h2>
+
+            <i class="fa-solid fa-star"></i>
+
+            Guest Reviews
+
+        </h2>
+
+
+        <!-- yaha pe ham Review wala form ko create kar rhe hai -->
+
+        <!-- yaha pe ye Authrization laga rhe hai ke jo user login hai wahe review do or delete kro -->
+
+        <% if (currUser) { %>
+
+            <div class="review-form">
+
+                <h5>
+                    Share your experience
+                </h5>
+
+
+                <form
+                    action="/listings/<%= listing._id %>/reviews"
+                    method="POST"
+                    novalidate
+                    class="needs-validation"
+                >
+
+                    <!-- Rating -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Rating
+                        </label>
+
+
+                        <!--
+                            ye code ham starability ke github se copy liye hai
+                            for giving rating css
+                        -->
+
+                        <fieldset class="starability-slot">
+
+                            <input
+                                type="radio"
+                                id="no-rate"
+                                class="input-no-rate"
+                                name="review[rating]"
+                                value="1"
+                                checked
+                                aria-label="No rating."
+                            />
+
+                            <input
+                                type="radio"
+                                id="first-rate1"
+                                name="review[rating]"
+                                value="1"
+                            />
+
+                            <label
+                                for="first-rate1"
+                                title="Terrible"
+                            >
+                                1 star
+                            </label>
+
+
+                            <input
+                                type="radio"
+                                id="first-rate2"
+                                name="review[rating]"
+                                value="2"
+                            />
+
+                            <label
+                                for="first-rate2"
+                                title="Not good"
+                            >
+                                2 stars
+                            </label>
+
+
+                            <input
+                                type="radio"
+                                id="first-rate3"
+                                name="review[rating]"
+                                value="3"
+                            />
+
+                            <label
+                                for="first-rate3"
+                                title="Average"
+                            >
+                                3 stars
+                            </label>
+
+
+                            <input
+                                type="radio"
+                                id="first-rate4"
+                                name="review[rating]"
+                                value="4"
+                            />
+
+                            <label
+                                for="first-rate4"
+                                title="Very good"
+                            >
+                                4 stars
+                            </label>
+
+
+                            <input
+                                type="radio"
+                                id="first-rate5"
+                                name="review[rating]"
+                                value="5"
+                            />
+
+                            <label
+                                for="first-rate5"
+                                title="Amazing"
+                            >
+                                5 stars
+                            </label>
+
+                        </fieldset>
+
+                    </div>
+
+
+                    <!-- Comment -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="comment"
+                            class="form-label"
+                        >
+
+                            Comment
+
+                        </label>
+
+
+                        <textarea
+                            name="review[comment]"
+                            id="comment"
+                            rows="4"
+                            class="form-control"
+                            placeholder="Write your experience..."
+                            required
+                        ></textarea>
+
+
+                        <div class="invalid-feedback">
+
+                            Please add some comments for review
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="btn btn-dark"
+                        type="submit"
+                    >
+
+                        Submit Review
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        <% } %>
+
+
+        <!-- ================= REVIEW DISPLAY ================= -->
+
+        <!-- yaha pe ham review ko display karane ke liye ham create kar rahe hai -->
+
+        <% if (listing.reviews.length > 0) { %>
+
+            <div class="reviews-container">
+
+                <% for(review of listing.reviews) { %>
+
+                    <div class="review-card">
+
+                        <div class="review-user">
+
+                            <i class="fa-solid fa-user-circle"></i>
+
+                            @<%= review.author.username %>
+
+                        </div>
+
+
+                        <!-- Starability Review Result -->
+
+                        <p
+                            class="starability-result review-rating"
+                            data-rating="<%= review.rating %>"
+                        >
+
+                            Rated: <%= review.rating %> stars
+
+                        </p>
+
+
+                        <div class="review-comment">
+
+                            <%= review.comment %>
+
+                        </div>
+
+
+                        <!-- Delete Review -->
+
+                        <% if (currUser) { %>
+
+                            <form
+                                method="POST"
+                                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                class="mt-3"
+                            >
+
+                                <button
+                                    class="btn btn-sm btn-outline-danger"
+                                    type="submit"
+                                >
+
+                                    Delete
+
+                                </button>
+
+                            </form>
+
+                        <% } %>
+
+                    </div>
+
+                <% } %>
+
+            </div>
+
+        <% } else { %>
+
+            <p class="text-muted">
+
+                No reviews yet.
+                Be the first to review this place!
+
+            </p>
+
+        <% } %>
+
+    </div>
+
+
+    <!-- ================= MAP ================= -->
+
+    <div class="map-box">
+    <img 
+        src="https://pp.walk.sc/tile/e/0/748x600/loc/lat=25.6728233/lng=85.2342658.png"
+        alt="Location Map"
+        class="default-map"
+    >
+</div>
+
+
+<!-- ================= FAVORITE JAVASCRIPT ================= -->
+
+<script>
+
+    let favoriteBtn =
+        document.getElementById("favoriteBtn");
+
+
+    favoriteBtn.addEventListener("click", () => {
+
+        favoriteBtn.classList.toggle("active");
+
+        let icon =
+            favoriteBtn.querySelector("i");
+
+        icon.classList.toggle("fa-regular");
+
+        icon.classList.toggle("fa-solid");
+
+    });
+
+</script>
+
+
+<script src="/js/map.js"></script>
