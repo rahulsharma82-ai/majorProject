@@ -117,7 +117,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// // ******************** Root Route ********************
+// ******************** Root Route ********************
+
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 // app.get("/", (req, res) => {
 //   res.send("hi i am Root");
